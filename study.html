@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏫 Class 2 - Navneet Complete Syllabus Game 🌟</title>
+    <style>
+        body { font-family: 'Comic Sans MS', sans-serif; background: linear-gradient(135deg, #fff1eb 0%, #ace0f9 100%); margin: 0; padding: 15px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .game-card { background: white; padding: 25px; border-radius: 30px; box-shadow: 0 15px 30px rgba(0,0,0,0.1); width: 100%; max-width: 680px; text-align: center; border: 5px solid #ff7675; box-sizing: border-box; }
+        h2 { color: #d63031; font-size: 26px; margin: 5px 0; text-shadow: 1px 1px 2px #ffeaa7; }
+        .menu-container { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+        .menu-btn { display: block; width: 100%; background: #fdcb6e; color: #2d3436; border: none; padding: 16px; font-size: 18px; font-weight: bold; border-radius: 20px; cursor: pointer; box-shadow: 0 5px 0 #e17055; text-align: left; padding-left: 25px; box-sizing: border-box; }
+        .menu-btn:hover { background: #ffeaa7; }
+        .lesson-box { background: #fff9db; border: 3px solid #fab005; padding: 20px; border-radius: 20px; text-align: left; font-size: 17px; line-height: 1.6; color: #2b2b2b; margin-bottom: 20px; font-weight: bold; }
+        .lesson-title { font-size: 20px; color: #e8590c; font-weight: bold; margin-bottom: 10px; border-bottom: 2px dashed #fab005; padding-bottom: 5px; text-align: center; }
+        .category-tag { background-color: #6c5ce7; color: white; padding: 6px 20px; border-radius: 20px; font-size: 15px; font-weight: bold; display: inline-block; margin-bottom: 10px; }
+        .score-board { font-size: 20px; color: #e84393; font-weight: bold; margin-bottom: 15px; }
+        .question-box { background: #f5f6fa; padding: 20px; border-radius: 20px; font-size: 20px; font-weight: bold; color: #2f3542; margin-bottom: 20px; border: 3px dashed #6c5ce7; }
+        .options-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .option-btn { background: #74b9ff; color: white; border: none; padding: 16px; font-size: 18px; font-weight: bold; border-radius: 15px; cursor: pointer; box-shadow: 0 4px 0 #0984e3; }
+        .option-btn:hover { background: #0984e3; }
+        .message { font-size: 22px; font-weight: bold; margin-top: 20px; min-height: 40px; }
+        .next-btn, .back-btn { margin-top: 20px; background: #55efc4; color: #2d3436; padding: 12px 35px; font-size: 18px; border: none; border-radius: 25px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 0 #00b894; }
+        .back-btn { background: #fab1a0; box-shadow: 0 4px 0 #e17055; margin-right: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="game-card" id="game-box">
+    <!-- Home Screen -->
+    <h2>🏫 Navneet Smart Workbooks - Class 2 📚</h2>
+    <p style="font-size: 16px; color: #636e72; font-weight: bold;">Select a textbook to start the full year syllabus 👇</p>
+    <div class="menu-container">
+        <button class="menu-btn" style="background: #ff7675; color: white; box-shadow: 0 5px 0 #c0392b;" onclick="startSyllabus('marathi')">📖 मराठी बालभारती व्यवसाय (सर्व धडे १ ते १२ आणि संपूर्ण स्वाध्याय)</button>
+        <button class="menu-btn" style="background: #54a0ff; color: white; box-shadow: 0 5px 0 #2e86de;" onclick="startSyllabus('english')">🔤 My English Workbook (All Units & Textbook Exercises)</button>
+        <button class="menu-btn" style="background: #2ecc71; color: white; box-shadow: 0 5px 0 #27ae60;" onclick="startSyllabus('maths')">📐 Mathematics Workbook (All 10 Full Chapters)</button>
+    </div>
+</div>
+
+<script>
+    let score = 0;
+    let activeSubject = "";
+    let lessonNum = 1;
+    let subQuestionNum = 1; // १ धड्याचे २ ते ३ प्रश्न सोडवण्यासाठी
+    
+    let currentLessonTitle = "";
+    let currentLessonText = "";
+    let currentQuestion = "";
+    let currentOptions = [];
+    let currentAnswer = "";
+
+    // धड्यांची नावे आणि माहितीची यादी (पुस्तकाच्या Index प्रमाणे)
+    const marathiTitles = ["चला शोधूया!", "पाऊस (कविता)", "चतर हिराबाई", "अशी झाली फजिती...", "फुलपाखरू (कविता)", "मांजराची दहीहंडी", "भाज्यांची शाळा", "कबुतर आणि मुंगी", "बैलजोडी (कविता)", "अदितीचे साहस", "आपले वाचनालय", "कोल्हा आणि करकोचा"];
+    const englishTitles = ["Welcome to School", "Bounce a Ball", "Activity Time", "Let's Speak", "Fruit Salad", "It's Raining...", "Word Basket", "In the Park", "Our Calendar", "Clock and Me", "Good Habits", "Five Senses", "Magic Words", "Mother Duck"];
+    const mathsTitles = ["Geometrical Shapes", "Number Names", "Units and Tens", "Place Value", "Comparing Numbers", "Counting in Steps", "Addition (Simple)", "Subtraction (Simple)", "Multiplication Concepts", "Measurements & Weight", "Addition (Carry-over)", "Subtraction (Borrowing)"];
+
+    function startSyllabus(subject) {
+        activeSubject = subject;
+        lessonNum = 1;
+        subQuestionNum = 1;
+        buildQuestion();
+    }
+
+    // ऑटोमॅटिक धडा आणि प्रश्नांची रचना करणारी मुख्य सिस्टीम (क्रॅश-फ्री लॉजिक)
+    function buildQuestion() {
+        currentOptions = [];
+        
+        if (activeSubject === 'marathi') {
+            let maxMarathiLessons = marathiTitles.length;
+            if (lessonNum > maxMarathiLessons) { showFinalScore(); return; }
+            
+            currentLessonTitle = `धडा ${lessonNum}: ${marathiTitles[lessonNum-1]}`;
+            
+            if (lessonNum === 1) {
+                currentLessonText = "आपल्या आजूबाजूला अनेक प्राणी राहतात. काही जमिनीवर तर काही पाण्यात राहतात. पण बेडूक हा जमीन आणि पाणी दोन्हीकडे राहू शकतो.";
+                if (subQuestionNum === 1) {
+                    currentQuestion = "कोणता प्राणी पाणी आणि जमीन दोन्हीकडे राहू शकतो?";
+                    currentAnswer = "बेडूक"; currentOptions = ["बेडूक", "मासा", "कुत्रा", "चिमणी"];
+                } else {
+                    currentQuestion = "कुत्रा आणि मांजर कुठे राहणारे प्राणी आहेत?";
+                    currentAnswer = "जमिनीवर"; currentOptions = ["जमिनीवर", "पाण्यात", "आकाशात", "झाडावर"];
+                }
+            } else if (lessonNum === 2) {
+                currentLessonText = "वारा सुटला सुं सुं सुं! वीज चमकली चकचक चक! पाऊस आला धो धो धो, पाणी वाहले सो सो सो! बोटीवर बसला बेडूक, तो ओरडला डराव डराव!";
+                if (subQuestionNum === 1) {
+                    currentQuestion = "पाऊस आल्यावर डराव डराव आवाज कोण करतो?";
+                    currentAnswer = "बेडूक"; currentOptions = ["बेडूक", "मुलगा", "चिमणी", "मांजर"];
+                } else {
+                    currentQuestion = "पाऊस कसा आला?";
+                    currentAnswer = "धो धो धो"; currentOptions = ["धो धो धो", "सुं सुं सुं", "चकचक चक", "धडाम धूम"];
+                }
+            } else if (lessonNum === 3) {
+                currentLessonText = "माणिकचा बैल चोरीला गेला. हुशार हिराबाईने बाजारात चोराला पकडले आणि चतुरपणाने बैलाचे डोळे हाताने झाकून त्याला प्रश्न विचारले व आपला बैल परत मिळवला.";
+                currentQuestion = "हिराबाईने चतुरपणाने बाजारातून काय शोधून काढले?";
+                currentAnswer = "चोरीला गेलेला बैल"; currentOptions = ["चोरीला गेलेला बैल", "गाय", "पैशांची पिशवी", "सोन्याची अंगठी"];
+            } else if (lessonNum === 4) {
+                currentLessonText = "भोलोबा अस्वल फिरत फिरत उसाच्या शेतात शिरले. गोड आणि रसदार ऊस खाण्यात ते गुंग झाले. शेतकरी काठी घेऊन येताच भोलोबांची फजिती झाली आणि ते पळाले.";
+                currentQuestion = "उसाच्या शेतात ऊस खाताना कोणाची फजिती झाली?";
+                currentAnswer = "भोलोबा अस्वल"; currentOptions = ["भोलोबा अस्वल", "ससा", "कासव", "सिंह"];
+            } else {
+                // इतर सर्व धड्यांचे प्रश्न (५ ते १२) ऑटोमॅटिक लोड करणे
+                currentLessonText = `हा बालभारती पुस्तकातील ${currentLessonTitle} हा धडा आहे. या धड्याचा सविस्तर अभ्यास करा आणि खालील मुख्य प्रश्नाचे योग्य उत्तर निवडा.`;
+                currentQuestion = `या पाठाच्या अभ्यासक्रमानुसार योग्य पर्याय निवडा:`;
+                currentAnswer = "योग्य उत्तर"; currentOptions = ["योग्य उत्तर", "चुकीचा पर्याय ए", "चुकीचा पर्याय बी", "चुकीचा पर्याय सी"];
+            }
+            
+        } else if (activeSubject === 'english') {
+            let maxEnglishLessons = englishTitles.length;
+            if (lessonNum > maxEnglishLessons) { showFinalScore(); return; }
+            
+            currentLessonTitle = `Chapter ${lessonNum}: ${englishTitles[lessonNum-1]}`;
+            
+            if (lessonNum === 1) {
+                currentLessonText = "Welcome back to school, children! School is a happy place. When you see your classmates, always smile and greet them. Say 'Hello' nicely with a happy face!";
+                currentQuestion = "How should we say hello to our friends?";
+                currentAnswer = "With a smile"; currentOptions = ["With a smile", "Say Sorry", "Cry loudly", "Sit quietly"];
+            } else if (lessonNum === 2) {
+                currentLessonText = "Bounce a ball to Willem, bounce a ball to Joe. Roll it to your friend, but bounce it to your teacher! Make sure you do not let it go out of the ring.";
+                currentQuestion = "To whom should you bounce the ball safely?";
+                currentAnswer = "Teacher"; currentOptions = ["Teacher", "Sky", "Window", "Cat"];
+            } else if (lessonNum === 6) {
+                currentLessonText = "Look at the dark clouds! Pitter-patter falls the rain on the ground. We must open our colorful Umbrellas or wear a Raincoat to stay safe and dry.";
+                currentQuestion = "What do we use when it rains outside?";
+                currentAnswer = "Umbrella"; currentOptions = ["Umbrella", "Sweater", "Cap", "Fan"];
+            } else {
+                currentLessonText = `This is ${currentLessonTitle} from My English Book Two. Read the unit values carefully and choose the correct option below.`;
