@@ -154,7 +154,7 @@
 
         } else if (chosenType === "table") {
             category = "🔢 Maths - Tables";
-            let num1 = Math.floor(Math.random() * 9) + 2;
+            let num1 = Math.floor(Math.random() * 8) + 2; // 2 ते 9 चे पाढे
             let num2 = Math.floor(Math.random() * 10) + 1;
             correct = (num1 * num2).toString();
             qText = `${num1} x ${num2} = ?`;
@@ -163,17 +163,18 @@
         } else if (chosenType === "placeValue") {
             category = "📐 Maths - Place Value";
             let num = Math.floor(Math.random() * 89) + 10;
-            let digits = num.toString().split('');
+            let tens = Math.floor(num / 10).toString();
+            let units = (num % 10).toString();
             let askTens = Math.random() > 0.5;
             
             if (askTens) {
-                correct = digits[0];
+                correct = tens;
                 qText = `Count the Tens in ${num}: (${num} मध्ये दशक किती आहेत?)`;
-                options = [correct, digits[1], (parseInt(digits[0])+2).toString(), "0"];
+                options = [correct, (parseInt(tens)+1).toString(), (parseInt(tens)+2).toString(), "0"];
             } else {
-                correct = digits[1];
+                correct = units;
                 qText = `Count the Units in ${num}: (${num} मध्ये एकक किती आहेत?)`;
-                options = [correct, digits[0], (parseInt(digits[1])+1).toString(), "9"];
+                options = [correct, (parseInt(units)+1).toString(), (parseInt(units)+2).toString(), "9"];
             }
 
         } else {
@@ -220,4 +221,3 @@
             selectedBtn.style.background = "#10ac84";
         } else {
             msg.style.color = "#ff6b6b";
-            msg.innerText = `अरेरे! योग्य उत्तर: ${currentCorrectAnswer} आहे. 👍`;
