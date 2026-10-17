@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>माझा डेली रिपोर्ट (Daily Report)</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7f6;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 600px;
+        }
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #34495e;
+        }
+        input[type="text"], input[type="date"], textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        textarea {
+            resize: vertical;
+            height: 100px;
+        }
+        button {
+            width: 100%;
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #27ae60;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>📝 Daily Work Report</h2>
+    
+    <div class="form-group">
+        <label for="name">तुमचे नाव (Name):</label>
+        <input type="text" id="name" placeholder="तुमचे नाव टाका">
+    </div>
+
+    <div class="form-group">
+        <label for="date">तारीख (Date):</label>
+        <input type="date" id="date">
+    </div>
+
+    <div class="form-group">
+        <label for="tasks">आज केलेली कामे (Tasks Completed Today):</label>
+        <textarea id="tasks" placeholder="१. प्रोजेक्टचे कोडिंग केले&#10;२. क्लायंटसोबत मिटिंग केली..."></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="challenges">काही अडचणी/समस्या (Challenges/Blockers):</label>
+        <textarea id="challenges" placeholder="काही अडचण आली असल्यास इथे लिहा (नसेल तर 'नाही' लिहा)"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="nextPlan">उद्याचा प्लॅन (Tomorrow's Plan):</label>
+        <textarea id="nextPlan" placeholder="१. उरलेले काम पूर्ण करणे&#10;२. रिपोर्ट सबमिट करणे..."></textarea>
+    </div>
+
+    <button onclick="generateReport()">रिपोर्ट डाउनलोड करा (Download Report)</button>
+</div>
+
+<script>
+    // आजची तारीख ऑटोमॅटिक सेट करण्यासाठी
+    document.getElementById('date').valueAsDate = new Date();
+
+    function generateReport() {
+        const name = document.getElementById('name').value;
+        const date = document.getElementById('date').value;
+        const tasks = document.getElementById('tasks').value;
+        const challenges = document.getElementById('challenges').value;
+        const nextPlan = document.getElementById('nextPlan').value;
+
+        if(!name || !tasks) {
+            alert("कृपया तुमचे नाव आणि आजची कामे नक्की भरा!");
+            return;
+        }
+
+        // रिपोर्टचा मजकूर तयार करणे
+        const reportText = `=== DAILY WORK REPORT ===\n` +
+                           `तारीख: ${date}\n` +
+                           `नाव: ${name}\n` +
+                           `=========================\n\n` +
+                           `[१] आज केलेली कामे:\n${tasks}\n\n` +
+                           `[२] अडचणी / समस्या:\n${challenges || 'काही नाही'}\n\n` +
+                           `[३] उद्याचा प्लॅन:\n${nextPlan || 'नियोजन नाही'}\n\n` +
+                           `=========================`;
+
+        // फाईल डाउनलोड करण्याची प्रोसेस
+        const blob = new Blob([reportText], { type: "text/plain;charset=utf-8" });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = `Daily_Report_${date}.txt`;
+        link.click();
+    }
+</script>
+
+</body>
+</html>
