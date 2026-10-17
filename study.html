@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class 2 - Unit 3 & 4 Game</title>
+    <style>
+        body { font-family: 'Comic Sans MS', sans-serif; background: linear-gradient(135deg, #fff1eb 0%, #ace0f9 100%); margin: 0; padding: 15px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .game-card { background: white; padding: 25px; border-radius: 30px; box-shadow: 0 15px 30px rgba(0,0,0,0.1); width: 100%; max-width: 650px; text-align: center; border: 5px solid #ff7675; box-sizing: border-box; }
+        h2 { color: #d63031; font-size: 26px; margin: 5px 0; }
+        .menu-container { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+        .menu-btn { display: block; width: 100%; background: #fdcb6e; color: #2d3436; border: none; padding: 16px; font-size: 18px; font-weight: bold; border-radius: 20px; cursor: pointer; box-shadow: 0 5px 0 #e17055; text-align: left; padding-left: 25px; box-sizing: border-box; }
+        .menu-btn:hover { background: #ffeaa7; }
+        .lesson-box { background: #fff9db; border: 3px solid #fab005; padding: 20px; border-radius: 20px; text-align: left; font-size: 17px; line-height: 1.6; color: #2b2b2b; margin-bottom: 20px; font-weight: bold; }
+        .lesson-title { font-size: 20px; color: #e8590c; font-weight: bold; margin-bottom: 10px; border-bottom: 2px dashed #fab005; padding-bottom: 5px; text-align: center; }
+        .category-tag { background-color: #6c5ce7; color: white; padding: 6px 20px; border-radius: 20px; font-size: 15px; font-weight: bold; display: inline-block; margin-bottom: 10px; }
+        .score-board { font-size: 20px; color: #e84393; font-weight: bold; margin-bottom: 15px; }
+        .question-box { background: #f5f6fa; padding: 20px; border-radius: 20px; font-size: 20px; font-weight: bold; color: #2f3542; margin-bottom: 20px; border: 3px dashed #6c5ce7; }
+        .options-container { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .option-btn { background: #74b9ff; color: white; border: none; padding: 16px; font-size: 18px; font-weight: bold; border-radius: 15px; cursor: pointer; box-shadow: 0 4px 0 #0984e3; }
+        .option-btn:hover { background: #0984e3; }
+        .message { font-size: 22px; font-weight: bold; margin-top: 20px; min-height: 40px; }
+        .next-btn, .back-btn { margin-top: 20px; background: #55efc4; color: #2d3436; padding: 12px 35px; font-size: 18px; border: none; border-radius: 25px; cursor: pointer; font-weight: bold; box-shadow: 0 4px 0 #00b894; }
+        .back-btn { background: #fab1a0; box-shadow: 0 4px 0 #e17055; margin-right: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="game-card" id="game-box">
+    <h2>🏫 Navneet Workbook - Unit 3 & 4 📚</h2>
+    <p style="font-size: 16px; color: #636e72; font-weight: bold;">Select a textbook to start the syllabus 👇</p>
+    <div class="menu-container">
+        <button class="menu-btn" style="background: #ff7675; color: white; box-shadow: 0 5px 0 #c0392b;" onclick="startSubject('marathi')">📖 मराठी बालभारती व्यवसाय (भाग ३ आणि ४)</button>
+        <button class="menu-btn" style="background: #54a0ff; color: white; box-shadow: 0 5px 0 #2e86de;" onclick="startSubject('english')">🔤 My English Workbook (Unit 3 & 4)</button>
+        <button class="menu-btn" style="background: #2ecc71; color: white; box-shadow: 0 5px 0 #27ae60;" onclick="startSubject('maths')">📐 Mathematics Workbook (Unit 3 & 4 Topics)</button>
+    </div>
+</div>
+
+<script>
+    let score = 0;
+    let currentSubject = "";
+    let currentQIdx = 0;
+    let currentQuestions = [];
+    let currentShuffledOptions = [];
+    let currentCorrectAnswer = "";
+
+    const repo = {
+        marathi: [
+            { t: "धडा ९: बैलजोडी (कविता) - भाग ३", text: "सर्जा आणि राजा हे माणिकचे आवडते बैल आहेत. पोळ्याच्या सणाला बैलांना छान आंघाळ घालून सजवले जाते आणि त्यांच्या गळ्यात घुंगुरमाळा बांधतात.", q: "बैलजोडी सणाच्या दिवशी बैलांना काय करतात?", o: ["सजवतात", "कामावर नेतात", "झोपवतात", "मारतात"], a: "सजवतात" },
+            { t: "धडा १०: अदितीचे साहस - भाग ३", text: "विमाळवाडी गावात राहणारी अदिती खूप धाडसी होती. एका रात्री तिने घराबाहेर झाडावर चमकणारा एक लहान काजवा कीटक पाहिला.", q: "अदितीला रात्री चमकणारा कोणता कीटक दिसला?", o: ["काजवा", "मुंगी", "बेडूक", "मधुमाशी"], a: "काजवा" },
+            { t: "धडा ११: आपले वाचनालय - भाग ४", text: "अतुलच्या घरी एक सुंदर वाचनालय होते. तिथे अनेक प्रकारची नवीन गोष्टींची पुस्तके, मासिके आणि वर्तमानपत्रे एकत्र ठेवली होती, जी सर्व मुले वाचायची.", q: "वाचनालयात आपण काय वाचायला जातो?", o: ["पुस्तके", "मोबाईल", "टीव्ही", "खेळ"], a: "पुस्तके" },
+            { t: "धडा १२: कोल्हा आणि करकोचा - भाग ४", text: "स्वार्थी कोल्ह्याने करकोच्याला आपल्या घरी जेवायला बोलावले आणि मुद्दाम एका पसरट थाळीत खीर दिली, जी करकोच्याला आपल्या लांब चोचीने खाता आली नाही.", q: "कोल्ह्याने करकोच्याला जेवायला कशात दिले?", o: ["पसरट थाळीत", "लांब भांड्यात", "ग्लासात", "चमच्यात"], a: "पसरट थाळीत" }
+        ],
+        english: [
+            { t: "UNIT 3: 3.2 Our Calendar", text: "A calendar helps us track days. There are 7 days in a week: Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, and Sunday. Sunday is a holiday!", q: "How many days are there in a standard week?", o: ["7 days", "12 days", "30 days", "5 days"], a: "7 days" },
+            { t: "UNIT 3: 3.5 Clock and Me", text: "The clock ticks all day long. Tick-tock, tick-tock! The small hand shows hours and the big hand shows minutes. It tells us the correct time.", q: "What does a clock tell us?", o: ["Time", "Weather", "Weight", "Money"], a: "Time" },
+            { t: "UNIT 4: 4.3 Good Habits", text: "Good habits keep us healthy and neat. We should brush our teeth twice a day, trim our nails, and wash hands before eating food.", q: "Which one is considered a GOOD habit?", o: ["Brushing teeth twice", "Waking up late", "Throwing trash", "Biting nails"], a: "Brushing teeth twice" },
+            { t: "UNIT 4: 4.4 Five Senses", text: "We have five senses. We see with our eyes, hear with our ears, smell with our nose, feel with our skin, and we taste food with our tongue.", q: "Which body part do we use to TASTE yummy food?", o: ["Tongue", "Eyes", "Ears", "Nose"], a: "Tongue" }
+        ],
+        maths: [
+            { t: "UNIT 3: Counting in Steps", text: "When we skip numbers regularly, it is called counting in steps. Counting 2, 4, 6, 8, 10 means we are skip counting in steps of 2.", q: "2, 4, 6, 8, 10... These are steps of which number?", o: ["Steps of 2", "Steps of 3", "Steps of 5", "Steps of 10"], a: "Steps of 2" },
+            { t: "UNIT 3: Addition Concepts", text: "Addition means putting things together. When we add 12 to 35, we add units to units (5+2=7) and tens to tens (3+1=4). The final total is 47.", q: "What is the total of 35 + 12?", o: ["47", "37", "45", "57"], a: "47" },
+            { t: "UNIT 4: Subtraction Concepts", text: "Subtraction means taking away. If you have 48 marbles and you give 15 marbles to your friend, you are left with 48 minus 15, which is 33.", q: "Solve the subtraction: 48 - 15 = ?", o: ["33", "35", "23", "43"], a: "33" },
+            { t: "UNIT 4: Measurements & Weight", text: "We use different tools to measure. Long distances or cloth length are measured in Metres, while liquids like milk are measured in Litres.", q: "We measure the length of a cloth in which unit?", o: ["Metre", "Litre", "Kilogram", "Rupees"], a: "Metre" }
+        ]
+    };
+
+    function startSubject(sub) {
+        currentSubject = sub;
+        currentQIdx = 0;
+        currentQuestions = repo[sub]; 
+        renderQuestion();
+    }
+
+    function renderQuestion() {
+        let qData = currentQuestions[currentQIdx];
+        let optionsHTML = "";
+        
+        let shuffledOpts = [];
+        for(let i=0; i<qData.o.length; i++) {
+            shuffledOpts.push(qData.o[i]);
+        }
+        shuffledOpts.sort(function() { return Math.random() - 0.5; });
+        
+        for (let i = 0; i < shuffledOpts.length; i++) {
+            optionsHTML += `<button class="option-btn" onclick="processSelection(${i})">${shuffledOpts[i]}</button>`;
+        }
+
+        let html = `
+            <div class="category-tag">Unit 3 & 4</div>
+            <div class="score-board">My Stars: ${score} ⭐</div>
+            <div class="lesson-box">
+                <div class="lesson-title">📖 ${qData.t}</div>
+                <div>${qData.text}</div>
+            </div>
+            <div class="question-box">❓ <b>Question:</b> ${qData.q}</div>
+            <div class="options-container">${optionsHTML}</div>
+            <div class="message" id="msg"></div>
+            <button class="back-btn" onclick="location.reload()">🏡 Main Menu</button>
+            <button class="next-btn" id="nxt" style="display:none;" onclick="loadNext()">Next Lesson ➡️</button>
+        `;
+        document.getElementById('game-box').innerHTML = html;
+
+        currentShuffledOptions = shuffledOpts;
+        currentCorrectAnswer = qData.a;
+    }
+
+    function processSelection(chosenIndex) {
+        let chosenOpt = currentShuffledOptions[chosenIndex];
+        let correctAns = currentCorrectAnswer;
+        
+        document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+        let m = document.getElementById('msg');
+        
+        if(chosenOpt === correctAns) {
+            score++;
+            m.style.color = "#00b894";
+            m.innerText = "Excellent! 🎉 🌟";
+        } else {
+            m.style.color = "#d63031";
+            m.innerText = `Keep Trying! Correct: ${correctAns} 👍`;
+        }
+        document.getElementById('nxt').style.display = "inline-block";
+    }
+
+    function loadNext() {
+        currentQIdx++;
+        if(currentQIdx < currentQuestions.length) {
+            renderQuestion();
+        } else {
+            document.getElementById('game-box').innerHTML = `
+                <h2>🎉 Superb Work! 🎉</h2>
