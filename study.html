@@ -1,15 +1,3 @@
-तुमच्या मुलीसाठी आपण एक कधीही न संपणारा (Unlimited) अभ्यास गेम तयार केला आहे! यात Dynamic Question Generator बसवले आहे, ज्यामुळे गेम कधीच संपणार नाही.
-ती जितक्या वेळा "पुढचा प्रश्न ➡️" वर क्लिक करेल, तितक्या वेळा कम्प्युटर स्वतःहून नवीन संख्या निवडून गणिते, पाढे आणि इंग्रजीचे प्रश्न तयार करत राहील.
-
-🛠️ गेम अनलिमिटेड करण्यासाठी काय करायचे?
-
-1. खालील संपूर्ण नवीन कोड कॉपी करा.
-2. तुमच्या कॉम्प्युटरवरील study.html फाईल मधील जुना कोड पूर्ण पुसून हा कोड तिथे Paste करा आणि फाईल सेव्ह करा.
-3. तुमच्या GitHub वर जाऊन ही नवीन फाईल नेहमीप्रमाणे Upload करून Commit changes करा.
-
-💻 कधीही न संपणाऱ्या गेमचा कोड (Unlimited Game Code):
-
-html
 <!DOCTYPE html>
 <html lang="mr">
 <head>
@@ -115,7 +103,6 @@ html
     let score = 0;
     let currentCorrectAnswer = "";
 
-    // स्थिर प्रश्न (इंग्रजी, सामान्य ज्ञान आणि आकार)
     const staticQuestions = [
         { category: "🔤 English - Opposites", q: "What is the opposite of 'HOT'? (गरम शब्दाचा विरुद्धार्थी शब्द):", options: ["Cold (थंड)", "Warm", "Ice", "Dry"], correct: "Cold (थंड)" },
         { category: "🔤 English - Opposites", q: "What is the opposite of 'UP'? (वर च्या विरुद्ध):", options: ["Out", "In", "Down (खाली)", "Left"], correct: "Down (खाली)" },
@@ -133,17 +120,14 @@ html
         { category: "🧠 General Knowledge", q: "What is the first month of the year? (वर्षाचा पहिला महिना कोणता?)", options: ["March", "December", "January", "April"], correct: "January" }
     ];
 
-    // ऑप्शन्स विस्कळीत (Shuffle) करण्यासाठी फंक्शन
     function shuffle(array) {
         return array.sort(() => Math.random() - 0.5);
     }
 
-    // ऑटोमॅटिक नवीन प्रश्न तयार करणारे मुख्य फंक्शन
     function generateDynamicQuestion() {
         document.getElementById('message').innerText = "";
         document.getElementById('next-btn').style.display = "none";
         
-        // ५ प्रकारच्या प्रश्नांमधून एक प्रकार रँडमली निवडणे
         const qTypes = ["addition", "subtraction", "table", "placeValue", "static"];
         const chosenType = qTypes[Math.floor(Math.random() * qTypes.length)];
         
@@ -154,7 +138,7 @@ html
 
         if (chosenType === "addition") {
             category = "📐 Maths - Addition";
-            let num1 = Math.floor(Math.random() * 50) + 1; // 1 ते 50 मधील संख्या
+            let num1 = Math.floor(Math.random() * 50) + 1;
             let num2 = Math.floor(Math.random() * 40) + 1;
             correct = (num1 + num2).toString();
             qText = `${num1} + ${num2} = ?`;
@@ -163,14 +147,14 @@ html
         } else if (chosenType === "subtraction") {
             category = "📐 Maths - Subtraction";
             let num1 = Math.floor(Math.random() * 50) + 20; 
-            let num2 = Math.floor(Math.random() * 19) + 1; // वजाबाकी सोपी ठेवण्यासाठी
+            let num2 = Math.floor(Math.random() * 19) + 1;
             correct = (num1 - num2).toString();
             qText = `${num1} - ${num2} = ?`;
             options = [correct, (num1-num2+1).toString(), (num1-num2-2).toString(), (num1-num2+5).toString()];
 
         } else if (chosenType === "table") {
             category = "🔢 Maths - Tables";
-            let num1 = Math.floor(Math.random() * 9) + 2; // 2 ते 10 चे पाढे
+            let num1 = Math.floor(Math.random() * 9) + 2;
             let num2 = Math.floor(Math.random() * 10) + 1;
             correct = (num1 * num2).toString();
             qText = `${num1} x ${num2} = ?`;
@@ -178,9 +162,9 @@ html
 
         } else if (chosenType === "placeValue") {
             category = "📐 Maths - Place Value";
-            let num = Math.floor(Math.random() * 89) + 10; // 10 ते 99 मधील संख्या
+            let num = Math.floor(Math.random() * 89) + 10;
             let digits = num.toString().split('');
-            let askTens = Math.random() > 0.5; // कधी दशक विचारणार कधी एकक
+            let askTens = Math.random() > 0.5;
             
             if (askTens) {
                 correct = digits[0];
@@ -193,7 +177,6 @@ html
             }
 
         } else {
-            // स्थिर प्रश्नांमधून एक निवडणे
             let randomStatic = staticQuestions[Math.floor(Math.random() * staticQuestions.length)];
             category = randomStatic.category;
             qText = randomStatic.q;
@@ -201,7 +184,6 @@ html
             options = [...randomStatic.options];
         }
 
-        // पर्याय युनिक (Unique) ठेवणे आणि शफल करणे
         options = Array.from(new Set(options));
         while(options.length < 4) {
             options.push((Math.floor(Math.random() * 100)).toString());
@@ -210,7 +192,6 @@ html
 
         currentCorrectAnswer = correct;
 
-        // स्क्रीनवर दाखवणे
         document.getElementById('category').innerText = category;
         document.getElementById('question').innerText = qText;
         
@@ -231,25 +212,12 @@ html
         let allBtns = document.querySelectorAll('.option-btn');
         allBtns.forEach(b => b.disabled = true);
 
-Use code with caution.
-if(chosenOpt === currentCorrectAnswer) {
-score++;
-document.getElementById('score').innerText = score;
-msg.style.color = "#10ac84";
-msg.innerText = "शाब्बास! खूप छान, बरोबर उत्तर आहे 🎉 ⭐";
-selectedBtn.style.background = "#10ac84";
-} else {
-msg.style.color = "#ff6b6b";
-msg.innerText = अरेरे! योग्य उत्तर: ${currentCorrectAnswer} आहे. 👍;
-selectedBtn.style.background = "#ff6b6b";
-}
-document.getElementById('next-btn').style.display = "inline-block";
-}
-// गेम सुरू करणे
-generateDynamicQuestion();
-
-आता हा नवीन कोड टाकल्यावर तिला रोज नवीन गणिते आणि प्रश्न सोडवायला मिळतील!
-
-<FollowUp>
-हा अनलिमिटेड कोड तुमच्या फाईलमध्ये **अपलोड करून बघा.** GitHub वरील **Actions** टॅबमध्ये हिरवे टिक आल्यावर लिंक उघडा. गेम कसा काम करतोय ते मला नक्की सांगा!
-</FollowUp>
+        if(chosenOpt === currentCorrectAnswer) {
+            score++;
+            document.getElementById('score').innerText = score;
+            msg.style.color = "#10ac84";
+            msg.innerText = "शाब्बास! खूप छान, बरोबर उत्तर आहे 🎉 ⭐";
+            selectedBtn.style.background = "#10ac84";
+        } else {
+            msg.style.color = "#ff6b6b";
+            msg.innerText = `अरेरे! योग्य उत्तर: ${currentCorrectAnswer} आहे. 👍`;
