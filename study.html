@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌟 २ री चा स्टार अभ्यास गेम 🌟</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .game-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            width: 100%;
+            max-width: 550px;
+            text-align: center;
+            border: 4px solid #ff9ff3;
+        }
+        h2 { color: #5f27cd; font-size: 26px; margin-bottom: 5px; }
+        .category-tag {
+            background-color: #ff9f43;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 14px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        .score-board { font-size: 18px; color: #ff6b6b; font-weight: bold; margin-bottom: 20px; }
+        .question-box {
+            background: #f1f2f6;
+            padding: 20px;
+            border-radius: 15px;
+            font-size: 22px;
+            font-weight: bold;
+            color: #2f3542;
+            margin-bottom: 20px;
+            border: 2px dashed #341f97;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .options-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        .option-btn {
+            background: #54a0ff;
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: transform 0.1s, background 0.2s;
+            box-shadow: 0 4px 0 #2e86de;
+        }
+        .option-btn:active { transform: scale(0.95); box-shadow: none; }
+        .option-btn:hover { background: #2e86de; }
+        .message { font-size: 20px; font-weight: bold; margin-top: 20px; min-height: 30px; }
+        .next-btn {
+            margin-top: 20px;
+            background: #10ac84;
+            color: white;
+            padding: 12px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            display: none;
+            font-weight: bold;
+        }
+        .restart-btn {
+            margin-top: 20px;
+            background: #ff6b6b;
+            color: white;
+            padding: 12px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            display: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="game-card">
+    <h2>✨ ऑल-इन-वन अभ्यास गेम ✨</h2>
+    <div id="category" class="category-tag">विषय</div>
+    <div class="score-board">मिळालेले स्टार्स: <span id="score">0</span> ⭐</div>
+    
+    <div class="question-box" id="question">प्रश्न लोड होत आहे...</div>
+    
+    <div class="options-container" id="options">
+        <!-- पर्याय इथे दिसतील -->
+    </div>
+    
+    <div class="message" id="message"></div>
+    <button class="next-btn" id="next-btn" onclick="nextQuestion()">पुढचा प्रश्न ➡️</button>
+    <button class="restart-btn" id="restart-btn" onclick="restartGame()">पुन्हा खेळा 🔄</button>
+</div>
+
+<script>
+    // २ री सेमी-इंग्रजी अभ्यासक्रम - पाढे, प्राण्यांचे आवाज, स्पेलिंग आणि सोपे प्रश्न
+    const questions = [
+        // 🔢 पाढे (Tables)
+        { category: "🔢 पाढे (Tables)", q: "2 x 5 = ?", options: ["8", "10", "12", "15"], correct: "10" },
+        { category: "🔢 पाढे (Tables)", q: "3 x 4 = ?", options: ["9", "14", "12", "16"], correct: "12" },
+        { category: "🔢 पाढे (Tables)", q: "5 x 3 = ?", options: ["15", "20", "10", "25"], correct: "15" },
+        
+        // 🦁 प्राण्यांचे आवाज (Animal Sounds)
+        { category: "🦁 प्राण्यांचे आवाज", q: "Which animal says 'Meow Meow'? (म्याऊ मॅऊ कोण करतो?)", options: ["Dog", "Cat", "Cow", "Lion"], correct: "Cat" },
+        { category: "🦁 प्राण्यांचे आवाज", q: "A Dog ________. (कुत्रा कसा ओरडतो?)", options: ["Roars", "Barks (भुंकतो)", "Bleats", "Mews"], correct: "Barks (भुंकतो)" },
+        { category: "🦁 प्राण्यांचे आवाज", q: "Which bird says 'Caw Caw'? (काव काव कोण करतो?)", options: ["Sparrow", "Parrot", "Crow", "Peacock"], correct: "Crow" },
+
+        // 🔤 स्पेलिंग गेम (Spelling Quiz)
+        { category: "🔤 स्पेलिंग गेम", q: "Find the correct spelling: (सफरचंदची योग्य स्पेलिंग सांगा)", options: ["Apel", "Apple", "Aple", "Appel"], correct: "Apple" },
+        { category: "🔤 स्पेलिंग गेम", q: "Complete the spelling: D O __ E Y (गाढव)", options: ["N K", "M K", "R K", "L K"], correct: "N K" },
+        { category: "🔤 स्पेलिंग गेम", q: "Identify the picture word: ☀️", options: ["MOON", "STAR", "SUN", "RAIN"], correct: "SUN" },
+
+        // 🧠 गणित आणि सामान्य ज्ञान (Semi-English Mix)
+        { category: "📐 गणित (Maths)", q: "What is the shape of a BANGLE (बांगडीचा आकार कसा असतो?)", options: ["Square", "Triangle", "Circle (गोल)", "Rectangle"], correct: "Circle (गोल)" },
+        { category: "📚 इंग्रजी (English)", q: "Opposite word for 'BIG' (मोठ्या शब्दाचा विरुद्धार्थी शब्द):", options: ["Tall", "Small", "Short", "Fat"], correct: "Small" }
+    ];
+
+    let currentIdx = 0;
+    let score = 0;
+
+    function loadQuestion() {
+        document.getElementById('message').innerText = "";
+        document.getElementById('next-btn').style.display = "none";
+        
+        let qData = questions[currentIdx];
+        document.getElementById('category').innerText = qData.category;
+        document.getElementById('question').innerText = qData.q;
+        
+        let optionsDiv = document.getElementById('options');
+        optionsDiv.innerHTML = "";
+        
+        qData.options.forEach(opt => {
+            let btn = document.createElement('button');
+            btn.className = 'option-btn';
+            btn.innerText = opt;
+            btn.onclick = () => checkAnswer(btn, opt);
+            optionsDiv.appendChild(btn);
+        });
+    }
+
+    function checkAnswer(selectedBtn, chosenOpt) {
+        let correctAns = questions[currentIdx].correct;
+        let msg = document.getElementById('message');
+        
+        let allBtns = document.querySelectorAll('.option-btn');
+        allBtns.forEach(b => b.disabled = true);
+
+        if(chosenOpt === correctAns) {
+            score++;
+            document.getElementById('score').innerText = score;
+            msg.style.color = "#10ac84";
+            msg.innerText = "शाब्बास! बरोबर उत्तर आहे 🎉 ⭐";
+            selectedBtn.style.background = "#10ac84";
+        } else {
+            msg.style.color = "#ff6b6b";
+            msg.innerText = `अरेरे! योग्य उत्तर: ${correctAns} 👍`;
+            selectedBtn.style.background = "#ff6b6b";
+        }
+        
+        document.getElementById('next-btn').style.display = "inline-block";
+    }
+
+    function nextQuestion() {
+        currentIdx++;
+        if(currentIdx < questions.length) {
+            loadQuestion();
+        } else {
+            document.getElementById('category').style.display = "none";
+            document.getElementById('question').innerText = "🎈 वाव! तुम्ही पूर्ण गेम जिंकलात! 🎈";
+            document.getElementById('options').innerHTML = "";
+            document.getElementById('message').innerText = `एकूण स्टार्स: ${score} / ${questions.length}`;
+            document.getElementById('next-btn').style.display = "none";
+            document.getElementById('restart-btn').style.display = "inline-block";
+        }
+    }
+
+    function restartGame() {
+        currentIdx = 0;
+        score = 0;
+        document.getElementById('score').innerText = score;
+        document.getElementById('category').style.display = "inline-block";
+        document.getElementById('restart-btn').style.display = "none";
+        loadQuestion();
+    }
+
+    // गेम सुरू करणे
+    loadQuestion();
+</script>
+
+</body>
+</html>
