@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🏫 Class 2 - Navneet Master Game 🌟</title>
+    <title>🏫 Class 2 - Navneet Complete Course Game 🌟</title>
     <style>
         body { font-family: 'Comic Sans MS', sans-serif; background: linear-gradient(135deg, #fff1eb 0%, #ace0f9 100%); margin: 0; padding: 15px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        .game-card { background: white; padding: 25px; border-radius: 30px; box-shadow: 0 15px 30px rgba(0,0,0,0.1); width: 100%; max-width: 650px; text-align: center; border: 5px solid #ff7675; box-sizing: border-box; }
+        .game-card { background: white; padding: 25px; border-radius: 30px; box-shadow: 0 15px 30px rgba(0,0,0,0.1); width: 100%; max-width: 680px; text-align: center; border: 5px solid #ff7675; box-sizing: border-box; }
         h2 { color: #d63031; font-size: 26px; margin: 5px 0; text-shadow: 1px 1px 2px #ffeaa7; }
         .menu-container { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
         .menu-btn { display: block; width: 100%; background: #fdcb6e; color: #2d3436; border: none; padding: 16px; font-size: 18px; font-weight: bold; border-radius: 20px; cursor: pointer; box-shadow: 0 5px 0 #e17055; text-align: left; padding-left: 25px; box-sizing: border-box; }
@@ -43,6 +43,8 @@
     let currentSubject = "";
     let currentQIdx = 0;
     let currentQuestions = [];
+    let currentShuffledOptions = [];
+    let currentCorrectAnswer = "";
 
     const repo = {
         marathi: [
@@ -63,8 +65,7 @@
             { t: "1.1 Welcome to School", text: "Welcome back to school, children! School is a happy place. Greet your friends with a big smile. Say 'Hello' nicely with a happy face!", q: "How should we say hello to our friends?", o: ["With a smile", "Say Sorry", "Cry loudly", "Sit quietly"], a: "With a smile" },
             { t: "1.2 Bounce a Ball", text: "Bounce a ball to Willem, bounce a ball to Joe. Roll it to your friend, but bounce it to your teacher! Do not let it go out of the ring.", q: "To whom should you bounce the ball safely?", o: ["Teacher", "Sky", "Window", "Cat"], a: "Teacher" },
             { t: "1.7 Fruit Salad", text: "Fruit salad is healthy and tasty. We use sweet Apples, yellow Bananas, and juicy Grapes. Wash all fruits carefully before cutting.", q: "Which red fruit is sweet and used in fruit salad?", o: ["Apple", "Lemon", "Onion", "Potato"], a: "Apple" },
-            { t: "2.1 It's Raining...", text: "Look at the dark clouds! Pitter-patter falls the rain on the ground. We must open our colorful Umbrellas or wear a Raincoat to stay dry.", q: "What do we use when it rains outside?", o: ["Umbrella", "Sweater", "Cap", "Fan"], a: "Umbrella" },
+            { t: "2.1 It's Raining...", text: "Look at the dark clouds! Pitter-patter falls the rain on the ground. We must open our colorful Umbrellas or wear a Raincoat to stay dry.", q: "What do we use when it rains outside?", o: ["Camp", "Sweater", "Umbrella", "Fan"], a: "Umbrella" },
             { t: "2.4 In the Park", text: "Children love to go to the green park. They play on the swings, run on the grass, and have fun sliding down the colorful slide.", q: "What fun activity do children do on a slide?", o: ["Sliding down", "Sleeping", "Writing", "Cooking"], a: "Sliding down" },
             { t: "3.2 Our Calendar", text: "A calendar helps us track days. There are 7 days in a week: Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, and Sunday.", q: "How many days are there in a standard week?", o: ["7 days", "12 days", "30 days", "5 days"], a: "7 days" },
             { t: "3.5 Clock and Me", text: "The clock ticks all day long. Tick-tock, tick-tock! The small hand shows hours and the big hand shows minutes. It tells us the correct time.", q: "What does a clock tell us?", o: ["Time", "Weather", "Weight", "Money"], a: "Time" },
-            { t: "4.3 Good Habits", text: "Good habits keep us healthy and neat. We should brush our teeth twice a day, trim our nails, and wash hands before eating food.", q: "Which one is considered a GOOD habit?", o: ["Brushing teeth twice", "Waking up late", "Throwing trash", "Biting nails"], a: "Brushing teeth twice" },
