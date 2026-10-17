@@ -1,9 +1,26 @@
+नक्कीच! जिल्हा परिषद शाळेच्या इयत्ता २ री (Semi-English) च्या अधिकृत अभ्यासक्रमानुसार (Syllabus) मी हा गेम आणखी मोठा आणि सविस्तर केला आहे. यामध्ये गणित (Maths) आणि इंग्रजी (English) या दोन्ही विषयांचे सर्व महत्त्वाचे घटक जोडले आहेत, जेणेकरून तिला संपूर्ण वर्षभराच्या अभ्यासासाठी याचा फायदा होईल.
+
+📚 नवीन सिलॅबसमध्ये जोडलेले घटक:
+
+• 📐 गणित (Maths): संख्यांचे वाचन (Numbers up to 100), स्थानिक किंमत (Place Value), बेरीज-वजाबाकी (Addition/Subtraction), आकृत्या (Shapes) आणि नाणी-नाणोट्यांची ओळख (Coins and Notes).
+• 🔤 इंग्रजी (English): रायमिंग वर्ड्स (Rhyming Words), विरुद्धार्थी शब्द (Opposites), कृतीवाचक शब्द (Action Words), इंग्रजी महिने व वारांची नावे (Months & Days) आणि सोपी वाक्यरचना.
+
+🛠️ गेम कसा अपडेट करायचा?
+
+1. खालील संपूर्ण नवीन कोड कॉपी करा.
+2. तुमच्या कॉम्प्युटरवर study.html फाईल राइट-क्लिक करून Notepad मध्ये उघडा.
+3. जुना कोड पूर्ण पुसून (Delete) हा नवीन कोड तिथे Paste करा आणि फाईल सेव्ह (Save) करा.
+4. तुमच्या GitHub वर जाऊन Add file -> Upload files वर क्लिक करून ही नवीन study.html फाईल पुन्हा अपलोड करा आणि Commit changes करा.
+
+💻 नवीन सुधारित कोड (Complete Syllabus Code):
+
+html
 <!DOCTYPE html>
 <html lang="mr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🌟 २ री चा स्टार अभ्यास गेम 🌟</title>
+    <title>🌟 जि. प. शाळा २ री - सेमी इंग्रजी अभ्यास गेम 🌟</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -21,17 +38,17 @@
             border-radius: 20px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.15);
             width: 100%;
-            max-width: 550px;
+            max-width: 600px;
             text-align: center;
             border: 4px solid #ff9ff3;
         }
-        h2 { color: #5f27cd; font-size: 26px; margin-bottom: 5px; }
+        h2 { color: #5f27cd; font-size: 24px; margin-bottom: 5px; }
         .category-tag {
             background-color: #ff9f43;
             color: white;
-            padding: 5px 15px;
+            padding: 6px 18px;
             border-radius: 15px;
-            font-size: 14px;
+            font-size: 15px;
             font-weight: bold;
             display: inline-block;
             margin-bottom: 10px;
@@ -41,15 +58,16 @@
             background: #f1f2f6;
             padding: 20px;
             border-radius: 15px;
-            font-size: 22px;
+            font-size: 20px;
             font-weight: bold;
             color: #2f3542;
             margin-bottom: 20px;
             border: 2px dashed #341f97;
-            min-height: 60px;
+            min-height: 70px;
             display: flex;
             align-items: center;
             justify-content: center;
+            line-height: 1.5;
         }
         .options-container {
             display: grid;
@@ -61,7 +79,7 @@
             color: white;
             border: none;
             padding: 15px;
-            font-size: 18px;
+            font-size: 17px;
             font-weight: bold;
             border-radius: 12px;
             cursor: pointer;
@@ -70,12 +88,12 @@
         }
         .option-btn:active { transform: scale(0.95); box-shadow: none; }
         .option-btn:hover { background: #2e86de; }
-        .message { font-size: 20px; font-weight: bold; margin-top: 20px; min-height: 30px; }
+        .message { font-size: 20px; font-weight: bold; margin-top: 20px; min-height: 35px; }
         .next-btn {
             margin-top: 20px;
             background: #10ac84;
             color: white;
-            padding: 12px 30px;
+            padding: 12px 35px;
             font-size: 18px;
             border: none;
             border-radius: 25px;
@@ -87,7 +105,7 @@
             margin-top: 20px;
             background: #ff6b6b;
             color: white;
-            padding: 12px 30px;
+            padding: 12px 35px;
             font-size: 18px;
             border: none;
             border-radius: 25px;
@@ -100,9 +118,9 @@
 <body>
 
 <div class="game-card">
-    <h2>✨ ऑल-इन-वन अभ्यास गेम ✨</h2>
+    <h2>🏫 २ री सेमी-इंग्रजी अभ्यास गेम 🏫</h2>
     <div id="category" class="category-tag">विषय</div>
-    <div class="score-board">मिळालेले स्टार्स: <span id="score">0</span> ⭐</div>
+    <div class="score-board">मिळालेले स्टार्स: <span id="score">0</span> / <span id="total-q">0</span> ⭐</div>
     
     <div class="question-box" id="question">प्रश्न लोड होत आहे...</div>
     
@@ -116,30 +134,48 @@
 </div>
 
 <script>
-    // २ री सेमी-इंग्रजी अभ्यासक्रम - पाढे, प्राण्यांचे आवाज, स्पेलिंग आणि सोपे प्रश्न
+    // २ री सेमी-इंग्रजी जिल्हा परिषद शाळा संपूर्ण अभ्यासक्रम (25 Questions)
     const questions = [
-        // 🔢 पाढे (Tables)
-        { category: "🔢 पाढे (Tables)", q: "2 x 5 = ?", options: ["8", "10", "12", "15"], correct: "10" },
-        { category: "🔢 पाढे (Tables)", q: "3 x 4 = ?", options: ["9", "14", "12", "16"], correct: "12" },
-        { category: "🔢 पाढे (Tables)", q: "5 x 3 = ?", options: ["15", "20", "10", "25"], correct: "15" },
+        // ---- गणिताचा भाग (Mathematics) ----
+        { category: "📐 Maths - Numbers", q: "Write in figures: Thirty-five (अक्षरी संख्येचे अंकात लेखन करा)", options: ["53", "35", "30", "5"], correct: "35" },
+        { category: "📐 Maths - Numbers", q: "What is the place value of 4 in '42'? ('४२' मध्ये ४ ची स्थानिक किंमत किती?)", options: ["4", "2", "40", "20"], correct: "40" },
+        { category: "📐 Maths - Numbers", q: "Which number comes just BEFORE 70? (७० च्या आधी कोणती संख्या येते?)", options: ["71", "69", "60", "59"], correct: "69" },
+        { category: "📐 Maths - Numbers", q: "Count the Tens in 58: (५८ मध्ये दशक किती आहेत?)", options: ["8 Tens", "5 Tens", "50 Tens", "3 Tens"], correct: "5 Tens" },
         
-        // 🦁 प्राण्यांचे आवाज (Animal Sounds)
-        { category: "🦁 प्राण्यांचे आवाज", q: "Which animal says 'Meow Meow'? (म्याऊ मॅऊ कोण करतो?)", options: ["Dog", "Cat", "Cow", "Lion"], correct: "Cat" },
-        { category: "🦁 प्राण्यांचे आवाज", q: "A Dog ________. (कुत्रा कसा ओरडतो?)", options: ["Roars", "Barks (भुंकतो)", "Bleats", "Mews"], correct: "Barks (भुंकतो)" },
-        { category: "🦁 प्राण्यांचे आवाज", q: "Which bird says 'Caw Caw'? (काव काव कोण करतो?)", options: ["Sparrow", "Parrot", "Crow", "Peacock"], correct: "Crow" },
+        { category: "📐 Maths - Addition", q: "12 + 7 = ?", options: ["17", "18", "19", "20"], correct: "19" },
+        { category: "📐 Maths - Addition", q: "20 + 30 = ?", options: ["40", "50", "60", "32"], correct: "50" },
+        { category: "📐 Maths - Subtraction", q: "15 - 6 = ?", options: ["8", "7", "9", "10"], correct: "9" },
+        { category: "📐 Maths - Subtraction", q: "48 - 8 = ?", options: ["40", "8", "44", "50"], correct: "40" },
+        
+        { category: "📐 Maths - Tables", q: "2 x 8 = ?", options: ["14", "16", "18", "20"], correct: "16" },
+        { category: "📐 Maths - Tables", q: "3 x 7 = ?", options: ["21", "24", "18", "27"], correct: "21" },
+        { category: "📐 Maths - Tables", q: "4 x 5 = ?", options: ["25", "15", "20", "30"], correct: "20" },
+        { category: "📐 Maths - Tables", q: "5 x 6 = ?", options: ["25", "30", "35", "40"], correct: "30" },
+        
+        { category: "📐 Maths - Shapes", q: "A Triangle has how many corners? (त्रिकोणाला किती कोपरे असतात?)", options: ["4", "2", "3", "0"], correct: "3" },
+        { category: "📐 Maths - Money", q: "One 10 Rs note + One 5 Rs coin = How many Rupees? (१० ची नोट + ५ चे नाणे = किती रुपये?)", options: ["12 Rs", "15 Rs", "20 Rs", "51 Rs"], correct: "15 Rs" },
 
-        // 🔤 स्पेलिंग गेम (Spelling Quiz)
-        { category: "🔤 स्पेलिंग गेम", q: "Find the correct spelling: (सफरचंदची योग्य स्पेलिंग सांगा)", options: ["Apel", "Apple", "Aple", "Appel"], correct: "Apple" },
-        { category: "🔤 स्पेलिंग गेम", q: "Complete the spelling: D O __ E Y (गाढव)", options: ["N K", "M K", "R K", "L K"], correct: "N K" },
-        { category: "🔤 स्पेलिंग गेम", q: "Identify the picture word: ☀️", options: ["MOON", "STAR", "SUN", "RAIN"], correct: "SUN" },
-
-        // 🧠 गणित आणि सामान्य ज्ञान (Semi-English Mix)
-        { category: "📐 गणित (Maths)", q: "What is the shape of a BANGLE (बांगडीचा आकार कसा असतो?)", options: ["Square", "Triangle", "Circle (गोल)", "Rectangle"], correct: "Circle (गोल)" },
-        { category: "📚 इंग्रजी (English)", q: "Opposite word for 'BIG' (मोठ्या शब्दाचा विरुद्धार्थी शब्द):", options: ["Tall", "Small", "Short", "Fat"], correct: "Small" }
+        // ---- इंग्रजीचा भाग (English) ----
+        { category: "🔤 English - Letters", q: "Which letter is a Capital Letter? (मोठ्या लिपीतील अक्षर कोणते?)", options: ["a", "m", "R", "e"], correct: "R" },
+        { category: "🔤 English - Rhyming Words", q: "Find the rhyming word for 'TOY':", options: ["BOY", "BAG", "TEN", "CAT"], correct: "BOY" },
+        { category: "🔤 English - Rhyming Words", q: "Find the rhyming word for 'KING':", options: ["SONG", "SING", "RING", "LONG"], correct: "RING" },
+        
+        { category: "🔤 English - Opposites", q: "What is the opposite of 'HOT'? (गरम शब्दाचा विरुद्धार्थी शब्द):", options: ["Cold (थंड)", "Warm", "Ice", "Dry"], correct: "Cold (थंड)" },
+        { category: "🔤 English - Opposites", q: "What is the opposite of 'UP'? (वर च्या विरुद्ध):", options: ["Out", "In", "Down (खाली)", "Left"], correct: "Down (खाली)" },
+        
+        { category: "🔤 English - Spelling", q: "Select the correct spelling for 🍌:", options: ["Benana", "Banana", "Bana", "Banana"], correct: "Banana" },
+        { category: "🔤 English - Action Words", q: "What are we doing with our eyes? (आपण डोळ्यांनी काय करतो?)", options: ["Hear", "Eat", "See (पाहणे)", "Walk"], correct: "See (पाहणे)" },
+        { category: "🔤 English - Action Words", q: "We use our teeth to ________ food. (दातांचा वापर कशासाठी होतो?)", options: ["Chew (चावणे)", "Run", "Sleep", "Cry"], correct: "Chew (चावणे)" },
+        
+        { category: "🔤 English - General", q: "How many days are there in a WEEK? (एका आठवड्यात किती दिवस असतात?)", options: ["5 days", "7 days", "12 days", "30 days"], correct: "7 days" },
+        { category: "🔤 English - Animals", q: "Which animal gives us MILK? (दूध देणारा प्राणी कोणता?)", options: ["Tiger", "Cow (गाय)", "Dog", "Cat"], correct: "Cow (गाय)" },
+        { category: "🔤 English - General", q: "What is the first month of the year? (वर्षाचा पहिला महिना कोणता?)", options: ["March", "December", "January", "April"], correct: "January" }
     ];
 
     let currentIdx = 0;
     let score = 0;
+
+    document.getElementById('total-q').innerText = questions.length;
 
     function loadQuestion() {
         document.getElementById('message').innerText = "";
@@ -172,11 +208,11 @@
             score++;
             document.getElementById('score').innerText = score;
             msg.style.color = "#10ac84";
-            msg.innerText = "शाब्बास! बरोबर उत्तर आहे 🎉 ⭐";
+            msg.innerText = "शाब्बास! खूप छान, बरोबर उत्तर आहे 🎉 ⭐";
             selectedBtn.style.background = "#10ac84";
         } else {
             msg.style.color = "#ff6b6b";
-            msg.innerText = `अरेरे! योग्य उत्तर: ${correctAns} 👍`;
+            msg.innerText = `अरेरे! योग्य उत्तर: ${correctAns} आहे. पुढचा प्रयत्न नक्की चांगला होईल! 👍`;
             selectedBtn.style.background = "#ff6b6b";
         }
         
@@ -189,26 +225,24 @@
             loadQuestion();
         } else {
             document.getElementById('category').style.display = "none";
-            document.getElementById('question').innerText = "🎈 वाव! तुम्ही पूर्ण गेम जिंकलात! 🎈";
-            document.getElementById('options').innerHTML = "";
-            document.getElementById('message').innerText = `एकूण स्टार्स: ${score} / ${questions.length}`;
-            document.getElementById('next-btn').style.display = "none";
-            document.getElementById('restart-btn').style.display = "inline-block";
-        }
-    }
+Use code with caution.
+document.getElementById('question').innerText = "🎈 अभिनंदन! तू पूर्ण अभ्यास गेम यशस्वीपणे संपवलास! 🎈";
+document.getElementById('options').innerHTML = "";
+document.getElementById('message').innerText = तुझा एकूण स्कोर: ${score} / ${questions.length} स्टार्स! ⭐;
+document.getElementById('next-btn').style.display = "none";
+document.getElementById('restart-btn').style.display = "inline-block";
+}
+}
+function restartGame() {
+currentIdx = 0;
+score = 0;
+document.getElementById('score').innerText = score;
+document.getElementById('category').style.display = "inline-block";
+document.getElementById('restart-btn').style.display = "none";
+loadQuestion();
+}
+loadQuestion();
 
-    function restartGame() {
-        currentIdx = 0;
-        score = 0;
-        document.getElementById('score').innerText = score;
-        document.getElementById('category').style.display = "inline-block";
-        document.getElementById('restart-btn').style.display = "none";
-        loadQuestion();
-    }
-
-    // गेम सुरू करणे
-    loadQuestion();
-</script>
-
-</body>
-</html>
+<FollowUp>
+हा नवीन कोड तुमच्या फाईलमध्ये **अपडेट करून बघा.** आता २५ प्रश्नांचा हा सविस्तर सेट तिला रोज नवनवीन गोष्टी शिकायला मदत करेल. कोड अपलोड करताना काही अडचण आली तर मला नक्की विचारा!
+</FollowUp>
